@@ -1,34 +1,31 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import s from './Searchbar.module.css';
 
 
-class Searchbar extends Component {
-    state = {
-        query: '',
-    };
-
-    handleSubmit = e => {
+export default function Searchbar({ getSearchValue }) {
+    const [query, setQuery] = useState('');
+    
+    const handleSubmit = e => {
         e.preventDefault();
 
-        if (this.state.query.trim() === '') {
+        if (query.trim() === '') {
             toast('Your query is empty');
             return;
         }
 
-        this.props.getSearchValue(this.state.query);
-        this.setState({ query: '' });
+        getSearchValue(query);
+        setQuery('');
     };
 
-    handleInputChange = e => {
-        this.setState({ query: e.target.value.toLowerCase() });
+    const handleInputChange = e => {
+        setQuery(e.target.value.toLowerCase());
     };
 
-    render() {
         return (
             <header className={s.Searchbar}>
                 <form
-                    onSubmit={this.handleSubmit}
+                    onSubmit={handleSubmit}
                     className={s.SearchForm}
                 >
                     <button type="submit" className={s.SearchFormButton}>
@@ -38,16 +35,70 @@ class Searchbar extends Component {
                     <input
                         className={s.SearchForm__input}
                         type="text"
-                        value={this.state.query}
+                        value={query}
                         autoComplete="off"
                         autoFocus
                         placeholder="Search images and photos"
-                        onChange={this.handleInputChange}
+                        onChange={handleInputChange}
                     />
                 </form>
-            </header>
+             </header>
         )
-    }
 };
 
-export default Searchbar;
+
+
+
+// import { Component } from 'react';
+// import { toast } from 'react-toastify';
+// import s from './Searchbar.module.css';
+
+
+// class Searchbar extends Component {
+//     state = {
+//         query: '',
+//     };
+
+//     handleSubmit = e => {
+//         e.preventDefault();
+
+//         if (this.state.query.trim() === '') {
+//             toast('Your query is empty');
+//             return;
+//         }
+
+//         this.props.getSearchValue(this.state.query);
+//         this.setState({ query: '' });
+//     };
+
+//     handleInputChange = e => {
+//         this.setState({ query: e.target.value.toLowerCase() });
+//     };
+
+//     render() {
+//         return (
+//             <header className={s.Searchbar}>
+//                 <form
+//                     onSubmit={this.handleSubmit}
+//                     className={s.SearchForm}
+//                 >
+//                     <button type="submit" className={s.SearchFormButton}>
+//                         <span className={s.SearchFormButton__label}>Search</span>
+//                     </button>
+
+//                     <input
+//                         className={s.SearchForm__input}
+//                         type="text"
+//                         value={this.state.query}
+//                         autoComplete="off"
+//                         autoFocus
+//                         placeholder="Search images and photos"
+//                         onChange={this.handleInputChange}
+//                     />
+//                 </form>
+//             </header>
+//         )
+//     }
+// };
+
+// export default Searchbar;
