@@ -1,9 +1,9 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import s from './ImageGallery.module.css';
 
 
-export default function ImageGallery({ data, onImageClick}) {
+export default function ImageGallery({ data, onImageClick }) {
     return (
         <ul className={s.ImageGallery}>
             {data.map(image => {
@@ -18,3 +18,9 @@ export default function ImageGallery({ data, onImageClick}) {
         </ul>
     );
 };
+
+ImageGallery.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number.isRequired })),
+  onImageClick: PropTypes.func,
+};
+
