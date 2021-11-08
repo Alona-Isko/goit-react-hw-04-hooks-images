@@ -19,68 +19,66 @@
 //   const [largeImageURL, setLargeImageURL] = useState('');
 //   const [loading, setLoading] = useState(false);
 
+  
 //   useEffect(() => {
+//     if (query === '') {
+//       return;
+//     }
+//     getFetch();
+//   });
   
-//   })
-  
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.query !== this.state.query) {
-  //     this.getFetch();
-  //   }
-  // };
+//   const getFetch = () => {
+//     setLoading(true);
 
-  // getFetch = () => {
-  //   const { query, page } = this.state;
-  //   this.setState({ loading: true });
-
-  //   return fetchImages(query, page)
-  //     .then(data => {
-  //       console.log("data: ", data);
-  //       this.setState(prev => ({
-  //         data: [...prev.data, ...data],
-  //         page: prev.page + 1,
-  //       }));
-  //     })
-  //     .catch(error => this.setState({ error }))
-  //     .finally(() => this.setState({ loading: false }));
-  // };
-
-  // getSearchValue = query => this.setState({
-  //   query,
-  //   page: 1,
-  //   data: [],
-  // });
+//     fetchImages(query, page)
+//       .then(data => {
+//         setData(e => [...e, ...data]);
+//         setPage(page + 1);
+//         if (page !== 1) {
+//           scrollLoadMore();
+//         }
+//       })
+//       .finally(setLoading(false));
+//   };
 
 
-  // onLoadMore = () => {
-  //   this.getFetch()
-  //     .then(() => {
-  //       this.scrollLoadMore();
-  //     });
-  // };
-
-  // scrollLoadMore = () => {
-  //   window.scrollTo({
-  //     top: document.documentElement.scrollHeight,
-  //     behavior: 'smooth',
-  //   });
-  // };
+//   const getSearchValue = query => {
+//     setQuery(query);
+//     setPage(1);
+//     setData([]);
+//   };
 
 
-  // openModalClick = largeImageURL => {
-  //   this.setState({
-  //     largeImageURL: largeImageURL,
-  //     showModal: true,
-  //   });
-  // };
+//   // const onLoadMore = () => {
+//   //   setLoading(true);
+//   //   fetchImages(query, page)
+//   //     .then(el => {
+//   //       setData([...data, ...el]);
+//   //       setPage(page + 1);
+//   //       scrollLoadMore();
+//   //     })
+//   //     .finally(setLoading(false));
+//   // };
 
-  // toggleModal = () => {
-  //   this.setState(prevState => ({
-  //     showModal: !prevState.showModal,
-  //     largeImageURL: '',
-  //   }));
-  // };
+
+//   const scrollLoadMore = () => {
+//     window.scrollTo({
+//       top: document.documentElement.scrollHeight,
+//       behavior: 'smooth',
+//     });
+//   };
+
+
+//   const openModalClick = largeImageURL => {
+//     setLargeImageURL(largeImageURL);
+//     setShowModal(true);
+//   };
+
+//   const toggleModal = () => {
+//     setShowModal(prevState => !prevState);
+//     setLargeImageURL('');
+//   };
 
 
 //     return (
@@ -95,7 +93,7 @@
 //         />
 //         {loading && <Loader />}
 //         {data.length > 0 && data.length >= 12 && (
-//           <Button onClick={onLoadMore}/>
+//           <Button onClick={getFetch}/>
 //         )}
 //         {showModal && (
 //           <Modal
