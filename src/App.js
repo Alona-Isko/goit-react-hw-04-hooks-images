@@ -19,29 +19,20 @@ export default function App() {
   const [largeImageURL, setLargeImageURL] = useState('');
   const [loading, setLoading] = useState(false);
 
-  
+
   useEffect(() => {
     if (query === '') {
       return;
     }
-    getFetch();
-  }, [query, page]);
-  
-
-  const getFetch = () => {
-    setLoading(true);
-
+    // setLoading(true);
     fetchImages(query, page)
       .then(data => {
-        setData(e => [...e, ...data]);
-        setPage(page + 1);
-        if (page !== 1) {
-          scrollLoadMore();
-        }
+        setData(data);
+        setPage(page);
       })
-      .finally(setLoading(false));
-  };
-
+      // .finally(setLoading(false));
+  }, [query, page]);
+  
 
   const getSearchValue = query => {
     setQuery(query);
@@ -50,16 +41,16 @@ export default function App() {
   };
 
 
-//   // const onLoadMore = () => {
-//   //   setLoading(true);
-//   //   fetchImages(query, page)
-//   //     .then(el => {
-//   //       setData([...data, ...el]);
-//   //       setPage(page + 1);
-//   //       scrollLoadMore();
-//   //     })
-//   //     .finally(setLoading(false));
-//   // };
+  const onLoadMore = () => {
+    setLoading(true);
+    fetchImages(query, page)
+      .then(el => {
+        setData([...data, ...el]);
+        setPage(page + 1);
+        scrollLoadMore();
+      })
+      .finally(setLoading(false));
+  };
 
 
   const scrollLoadMore = () => {
@@ -96,7 +87,7 @@ export default function App() {
         {loading && <Loader />}
         {data.length > 0 && data.length >= 12 && (
           <Button
-            onClick={getFetch}
+            onClick={onLoadMore}
           />
         )}
         {showModal && (
