@@ -1,46 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
-// import Button from './components/Button/Button';
-// import fetchImages from './services/apiServer';
-// import Modal from './components/Modal/Modal';
-// import Loader from './components/Loader/Loader';
+import Button from './components/Button/Button';
+import fetchImages from './services/apiServer';
+import Modal from './components/Modal/Modal';
+import Loader from './components/Loader/Loader';
 import s from './App.module.css';
 
 
 export default function App() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
-  const [data, setData] = useState(null);
-//   const [showModal, setShowModal] = useState(false);
-//   const [largeImageURL, setLargeImageURL] = useState('');
-//   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [largeImageURL, setLargeImageURL] = useState('');
+  const [loading, setLoading] = useState(false);
 
   
-//   useEffect(() => {
-//     if (query === '') {
-//       return;
-//     }
-//     getFetch();
-//   });
+  useEffect(() => {
+    if (query === '') {
+      return;
+    }
+    getFetch();
+  }, [query, page]);
   
 
-//   const getFetch = () => {
-//     setLoading(true);
+  const getFetch = () => {
+    setLoading(true);
 
-//     fetchImages(query, page)
-//       .then(data => {
-//         setData(e => [...e, ...data]);
-//         setPage(page + 1);
-//         if (page !== 1) {
-//           scrollLoadMore();
-//         }
-//       })
-//       .finally(setLoading(false));
-//   };
+    fetchImages(query, page)
+      .then(data => {
+        setData(e => [...e, ...data]);
+        setPage(page + 1);
+        if (page !== 1) {
+          scrollLoadMore();
+        }
+      })
+      .finally(setLoading(false));
+  };
 
 
   const getSearchValue = query => {
@@ -62,23 +62,23 @@ export default function App() {
 //   // };
 
 
-//   const scrollLoadMore = () => {
-//     window.scrollTo({
-//       top: document.documentElement.scrollHeight,
-//       behavior: 'smooth',
-//     });
-//   };
+  const scrollLoadMore = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
 
 
-//   const openModalClick = largeImageURL => {
-//     setLargeImageURL(largeImageURL);
-//     setShowModal(true);
-//   };
+  const openModalClick = largeImageURL => {
+    setLargeImageURL(largeImageURL);
+    setShowModal(true);
+  };
 
-//   const toggleModal = () => {
-//     setShowModal(prevState => !prevState);
-//     setLargeImageURL('');
-//   };
+  const toggleModal = () => {
+    setShowModal(prevState => !prevState);
+    setLargeImageURL('');
+  };
 
 
     return (
@@ -91,9 +91,9 @@ export default function App() {
         />
         <ImageGallery
           data={data}
-          // onImageClick={openModalClick}
+          onImageClick={openModalClick}
         />
-        {/* {loading && <Loader />}
+        {loading && <Loader />}
         {data.length > 0 && data.length >= 12 && (
           <Button
             onClick={getFetch}
@@ -103,7 +103,7 @@ export default function App() {
           <Modal
             onClose={toggleModal}
             largeImageURL={largeImageURL}
-          />)} */}
+          />)}
       </div>
     )
 };

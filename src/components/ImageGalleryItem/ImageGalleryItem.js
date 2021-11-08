@@ -3,7 +3,9 @@ import s from './ImageGalleryItem.module.css';
 
 export default function ImageGalleryItem({ image, onImageClick }) {
     return (
-        <li key={image.id} className={s.ImageGalleryItem}>
+      <li
+        // key={image.id}
+        className={s.ImageGalleryItem}>
             <img
                 src={image.webformatURL}
                 alt={image.tags}
